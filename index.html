@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="auto">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Panel de métricas — SVG puro</title>
+<meta name="description" content="Panel con 4 gráficos en SVG puro sin librerías: líneas, barras apiladas, dispersión y mapa de calor." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <h1>Panel de métricas</h1>
+      <p class="subtitle">SVG puro, sin librerías · escalas y ticks calculados a mano · responsive real</p>
+    </div>
+    <div class="topbar-actions">
+      <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar entre tema claro y oscuro">🌙 Tema</button>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="card" aria-labelledby="t-line">
+    <div class="card-head">
+      <h2 id="t-line">Líneas — visitas y registros</h2>
+      <p>Eje X temporal con ticks bonitos. Pasa el ratón para ver el punto más cercano.</p>
+    </div>
+    <div class="legend" id="legend-line"></div>
+    <div class="chart-wrap" id="chart-line"></div>
+  </section>
+
+  <section class="card" aria-labelledby="t-bars">
+    <div class="card-head">
+      <h2 id="t-bars">Barras apiladas — captación por mes</h2>
+      <p>Escala lineal Y con ticks bonitos. Tooltip al segmento apilado más cercano.</p>
+    </div>
+    <div class="legend" id="legend-bars"></div>
+    <div class="chart-wrap" id="chart-bars"></div>
+  </section>
+
+  <section class="card" aria-labelledby="t-scatter">
+    <div class="card-head">
+      <h2 id="t-scatter">Dispersión — inversión vs conversiones</h2>
+      <p>Dos escalas lineales. El tooltip busca el punto euclídeo más cercano.</p>
+    </div>
+    <div class="legend" id="legend-scatter"></div>
+    <div class="chart-wrap" id="chart-scatter"></div>
+  </section>
+
+  <section class="card" aria-labelledby="t-heat">
+    <div class="card-head">
+      <h2 id="t-heat">Mapa de calor — actividad por hora y día</h2>
+      <p>Escala de color lineal. Tooltip a la celda más cercana.</p>
+    </div>
+    <div class="legend" id="legend-heat"></div>
+    <div class="chart-wrap" id="chart-heat"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Datos de ejemplo en <code>data.json</code> · Sin dependencias · Texto con contraste AA · Redibujado real con <code>ResizeObserver</code> (sin deformar texto).</p>
+</footer>
+
+<div id="tooltip" class="tooltip" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>

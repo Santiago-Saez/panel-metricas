@@ -1,0 +1,173 @@
+/* Tema claro / oscuro con contraste AA para texto.
+   - Texto principal: #0F172A sobre #FFFFFF (~15:1) y #F1F5F9 sobre #0B1220 (~15:1).
+   - Texto secundario ejes: #475569 sobre #FFFFFF (~7.5:1) y #CBD5E1 sobre #0B1220 (~12:1).
+   Ambos superan el 4.5:1 exigido por WCAG AA. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --grid: #e2e8f0;
+  --border: #e2e8f0;
+  --accent: #1d4ed8;
+  --tooltip-bg: #0f172a;
+  --tooltip-text: #ffffff;
+  --focus: #1d4ed8;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --card: #111a2e;
+  --text: #f1f5f9;
+  --muted: #cbd5e1;
+  --grid: #263349;
+  --border: #263349;
+  --accent: #93c5fd;
+  --tooltip-bg: #f1f5f9;
+  --tooltip-text: #0b1220;
+  --focus: #93c5fd;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    --bg: #0b1220;
+    --card: #111a2e;
+    --text: #f1f5f9;
+    --muted: #cbd5e1;
+    --grid: #263349;
+    --border: #263349;
+    --accent: #93c5fd;
+    --tooltip-bg: #f1f5f9;
+    --tooltip-text: #0b1220;
+    --focus: #93c5fd;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+h1 { margin: 0; font-size: 1.5rem; }
+.subtitle { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+#theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+#theme-toggle:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 0;
+}
+
+.card-head h2 { margin: 0; font-size: 1.05rem; }
+.card-head p { margin: 0.25rem 0 0.75rem; color: var(--muted); font-size: 0.9rem; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.legend-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 1px solid rgba(0,0,0,0.25);
+}
+
+/* El SVG se dimensiona en píxeles desde JS (ancho medido + alto calculado).
+   No usamos viewBox escalado para no deformar el texto: la fuente queda fija. */
+.chart-wrap { width: 100%; min-height: 280px; }
+.chart-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: inherit;
+}
+
+.axis-text { fill: currentColor; color: var(--muted); font-size: 12px; }
+.axis-title { fill: currentColor; color: var(--muted); font-size: 12px; }
+.grid-line { stroke: var(--grid); stroke-width: 1; }
+.axis-line { stroke: var(--muted); stroke-width: 1; }
+
+.hover-ring { fill: none; stroke: var(--focus); stroke-width: 2; pointer-events: none; }
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  max-width: min(300px, 80vw);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.tooltip strong { display: block; }
+
+.footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
